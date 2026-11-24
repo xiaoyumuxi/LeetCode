@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LeetCode</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="messages.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+<main id="app">
+  <header>
+    <div class="row">
+      <label class="grow"><span data-text="site"></span><select id="site"><option value="cn" data-text="SITE_CN"></option><option value="com" data-text="SITE_COM"></option></select></label>
+      <button id="login" data-action="login" data-text="login"></button>
+      <button class="info" data-tip="loginInfo" aria-label="ⓘ">ⓘ</button>
+    </div>
+    <div class="row wrap"><span id="account" class="muted grow"></span><button id="connect" data-action="connect" data-text="connect"></button><button id="verify" data-action="account" data-text="account" hidden></button><button id="logout" data-action="logout" data-text="logout" hidden></button></div>
+  </header>
+  <form id="search-form">
+    <div class="row"><input id="search" type="search" maxlength="256" class="grow" data-placeholder="query"><button type="submit" data-text="search"></button></div>
+    <div class="row filters">
+      <label><span data-text="difficulty"></span><select id="difficulty"><option value="" data-text="all"></option><option value="EASY" data-text="EASY"></option><option value="MEDIUM" data-text="MEDIUM"></option><option value="HARD" data-text="HARD"></option></select></label>
+      <label><span data-text="status"></span><select id="status"><option value="" data-text="all"></option><option value="AC" data-text="AC"></option><option value="TRIED" data-text="TRIED"></option><option value="NOT_STARTED" data-text="NOT_STARTED"></option></select></label>
+      <label class="grow"><span><span data-text="tag"></span> <button type="button" class="info" data-tip="tagInfo" aria-label="ⓘ">ⓘ</button></span><input id="tag" maxlength="100" placeholder="array"></label>
+    </div>
+  </form>
+  <div class="row toolbar"><button data-action="refresh" data-text="refresh"></button><button data-action="daily" data-text="daily"></button><span id="count" class="muted grow"></span></div>
+  <div id="community-bar" class="row" hidden><button data-action="problems" data-text="backProblems"></button><strong id="community-title"></strong></div>
+  <div id="list" tabindex="0" role="listbox" aria-label="LeetCode"><div id="spacer"></div><div id="rows"></div><p id="empty" class="muted"></p></div>
+  <button id="retry" data-text="retry" hidden></button>
+  <section class="solution">
+    <h2 id="selected"></h2>
+    <div class="row"><label class="grow"><span><span data-text="language"></span> <button class="info" data-tip="languageInfo" aria-label="ⓘ">ⓘ</button></span><select id="language"></select></label></div>
+    <div class="row wrap"><button data-action="preview" data-text="preview"></button><button class="info" data-tip="previewInfo" aria-label="ⓘ">ⓘ</button><button data-action="create" data-text="create"></button><button class="info" data-tip="createInfo" aria-label="ⓘ">ⓘ</button><button data-action="website" data-text="website"></button></div>
+    <div class="row wrap"><button data-action="solutions" data-text="solutions"></button><button data-action="discussion" data-text="discussion"></button><button class="info" data-tip="communityInfo" aria-label="ⓘ">ⓘ</button></div>
+    <div class="row wrap"><button data-action="run" data-text="run"></button><button data-action="submit" data-text="submit"></button><button class="info" data-tip="verdictInfo" aria-label="ⓘ">ⓘ</button><button id="check" data-action="check" data-text="check" hidden></button></div>
+  </section>
+  <div id="status-row" class="row"><span id="notice" role="status" class="grow"></span><button id="cancel" data-text="cancel" hidden></button></div>
+  <p id="error" role="alert" hidden></p>
+  <button id="result" data-action="result" data-text="showResult" hidden></button>
+</main>
+</body>
+</html>

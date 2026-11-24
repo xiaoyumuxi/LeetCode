@@ -1,0 +1,4 @@
+github.com/Lithe-IDEA/Lithe-core-rust/shared/plugins/sdk/go v0.0.0-20261123221629-75e148091439 h1:E+sPcW64KcnWZhISn/gDy3SnkUzpkGt9y3z9OlEWAEw=
+github.com/Lithe-IDEA/Lithe-core-rust/shared/plugins/sdk/go v0.0.0-20261123221629-75e148091439/go.mod h1:dox9F+LPBk11XiGQd7HTLLZNiF8NhDFqXF1yD00tsTU=
+golang.org/x/net v0.63.0 h1:HCoTmNh9EpD1PpK8gBNFY4gcTY4N+KQEO8ylfIKqFJ0=
+golang.org/x/net v0.63.0/go.mod h1:15JLg3IX1bLjHK264EZQEbIpTiR/KVLuo9CTRWd0pig=

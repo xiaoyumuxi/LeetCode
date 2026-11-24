@@ -1,0 +1,18 @@
+{
+  "simpleIcons": {
+    "commit": "585b247ff866e6d359124bcf3d63c4346dfaed03",
+    "license": "CC0-1.0",
+    "files": [
+      {
+        "path": "icons/leetcode.svg",
+        "url": "https://raw.githubusercontent.com/simple-icons/simple-icons/585b247ff866e6d359124bcf3d63c4346dfaed03/icons/leetcode.svg",
+        "sha256": "21ee902be3f8d265eb116ba737ae75fb6a46b778aeefb6358dd7b1e68a685ebe"
+      },
+      {
+        "path": "licenses/simple-icons-CC0-1.0.txt",
+        "url": "https://raw.githubusercontent.com/simple-icons/simple-icons/585b247ff866e6d359124bcf3d63c4346dfaed03/LICENSE.md",
+        "sha256": "9046848b63a5c92bff14e4accca80bd987e0623b74adf9226ce5198d312b79d5"
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/Lithe-IDEA/Lithe-core-rust",
+  "commit": "75e148091439248e5927c58790019b26de02ca87",
+  "module": "github.com/Lithe-IDEA/Lithe-core-rust/shared/plugins/sdk/go",
+  "version": "v0.0.0-20261123221629-75e148091439",
+  "hostRepository": "https://github.com/1lck/Lithe-IDEA",
+  "hostCommit": "240eed4a0274e9821a044bd17c7cc18081a0f570"
+}

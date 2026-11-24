@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 0,
+  "id": "io.github.lithe-idea.leetcode",
+  "displayName": "LeetCode",
+  "version": "0.0.1",
+  "pluginAPIVersion": 0,
+  "requires": {
+    "backend": 0,
+    "ui": 0
+  },
+  "vendor": {
+    "id": "io.github.lithe-idea",
+    "displayName": "Lithe Community",
+    "signatureRequirement": "none"
+  },
+  "permissions": [
+    "backend.launch",
+    "ui.contribute",
+    "workspace.metadata",
+    "workspace.files.write",
+    "editor.open",
+    "documents.read",
+    "credentials.store",
+    "network.request",
+    "preview.open",
+    "browser.open",
+    "window.input",
+    "window.messages",
+    "run.start",
+    "ui.web"
+  ],
+  "activationEvents": [
+    "onView:io.github.lithe-idea.leetcode.problems",
+    "onCommand:io.github.lithe-idea.leetcode.open"
+  ],
+  "ui": {
+    "toolWindows": [
+      {
+        "id": "io.github.lithe-idea.leetcode.problems",
+        "title": "LeetCode",
+        "placement": "right",
+        "icon": {
+          "path": "icons/leetcode.svg",
+          "mode": "template"
+        },
+        "web": {
+          "entry": "ui/index.html"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "id": "io.github.lithe-idea.leetcode.open",
+        "title": "LeetCode",
+        "toolWindowID": "io.github.lithe-idea.leetcode.problems",
+        "placements": [
+          "commandPalette",
+          "menu"
+        ],
+        "icon": {
+          "path": "icons/leetcode.svg",
+          "mode": "template"
+        }
+      }
+    ]
+  },
+  "backend": {
+    "launch": {
+      "kind": "packaged",
+      "path": "bin/backend"
+    }
+  }
+}

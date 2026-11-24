@@ -38,8 +38,8 @@ jobs:
           node --check ui/main.js
           node --check ui/messages.js
           go run ./scripts/build/translations.go --check
-      - name: Build isolated development package
-        run: python3 scripts/build/package.py
+      - name: Build packages for macOS, Windows and Linux
+        run: python3 scripts/build/package.py --all
       - name: Upload check evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -47,6 +47,7 @@ jobs:
           name: plugin-checks-linux
           path: |
             .artifacts/test-results.jsonl
+            dist/*.zip
             dist/*.sha256
           if-no-files-found: warn
 

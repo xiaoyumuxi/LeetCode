@@ -2,7 +2,7 @@
 
 个人维护仓库：[xiaoyumuxi/LeetCode](https://github.com/xiaoyumuxi/LeetCode)。维护入口见 [维护说明](docs/maintenance.md)，问题可在 [Issues](https://github.com/xiaoyumuxi/LeetCode/issues) 提交。
 
-[`0.0.1` 预发布](https://github.com/xiaoyumuxi/LeetCode/releases/tag/v0.0.1)。插件代码与测试独立维护；不需要在宿主添加力扣特判。**还未发布到市场，也不承诺兼容当前稳定版宿主。** 所依赖的契约、SDK、宿主提交见 [sdk.lock.json](sdk.lock.json)。本轮按用户要求只构建发布包，未运行测试或桌面验收；Release 提供 macOS Apple Silicon 和 Intel 安装包。宿主通用修复见 [#2383](https://github.com/1lck/Lithe-IDEA/pull/2383)。
+[`0.0.1` 预发布](https://github.com/xiaoyumuxi/LeetCode/releases/tag/v0.0.1)。插件代码与测试独立维护；不需要在宿主添加力扣特判。**Store 收录正在准备，不承诺兼容当前稳定版宿主。** 所依赖的契约、SDK、宿主提交见 [sdk.lock.json](sdk.lock.json)。本轮按用户要求只构建发布包，未运行测试或桌面验收；Release 提供 macOS、Windows、Linux 各自的 arm64 和 x64 安装包。宿主通用修复见 [#2383](https://github.com/1lck/Lithe-IDEA/pull/2383)。
 
 实现了中英文站公开题库、关键词/难度/标签/状态筛选、每日一题、文本题面预览，以及从真实题目模板生成解题文件。中文站题解与热门顶层评论在编辑区只读标签页打开；在线示例运行、提交和结果查询已接线，完成后在宿主「运行」工具窗口显示报告，仍需使用真实账号验收。详见 [功能矩阵](docs/features.md)、[问题清单](docs/issues.md) 和 [验证记录](docs/verification.md)。
 
@@ -20,6 +20,14 @@
 
 首版不支持会员题、本地判题/调试、自定义测试用例、历史提交、复习计划或模拟面试。题面只保留文本和代码，图片与公式请打开原网站查看。
 
+安装包按 Lithe 宿主的系统和架构选择；交叉编译成功不代表该平台的桌面工作流已经验收。
+
+| 系统 | arm64 | x64 |
+| --- | --- | --- |
+| macOS | `LeetCode-0.0.1-darwin-arm64.zip` | `LeetCode-0.0.1-darwin-x64.zip` |
+| Windows | `LeetCode-0.0.1-windows-arm64.zip` | `LeetCode-0.0.1-windows-x64.zip` |
+| Linux | `LeetCode-0.0.1-linux-arm64.zip` | `LeetCode-0.0.1-linux-x64.zip` |
+
 ## 构建与检查
 
 需要 Go `1.27.4`、Python 3、Node.js（仅开发检查）：
@@ -32,6 +40,8 @@ node --check ui/main.js
 go run ./scripts/build/translations.go --check
 python3 scripts/build/package.py
 ```
+
+发布时执行 `python3 scripts/build/package.py --all`，一次构建上述六个包及 SHA-256 文件。单目标仍可用 `GOOS=windows GOARCH=amd64 python3 scripts/build/package.py`（Go 中 x64 写作 `amd64`）。Windows 包的后端入口为 `bin/backend.exe`；macOS 和 Linux 为 `bin/backend`。CI 在 Linux runner 交叉编译六个目标，不会据此把 Windows/macOS 的运行验收标为通过。
 
 修改中英文文案后执行 `go run ./scripts/build/translations.go`。唯一词条来源为 `internal/plugin/i18n.go`，网页使用生成的 `ui/messages.js`，不请求远程语言包。清单中的 `LeetCode` 是两种界面语言共用的产品名；当前契约不能翻译工具窗口/命令标题，因此不伪造 `l10n` 字段。
 

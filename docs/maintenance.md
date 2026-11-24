@@ -26,9 +26,9 @@ go mod download
 python3 scripts/build/package.py
 ```
 
-打包脚本生成词条、核对固定图标哈希并编译后端。产物为 `dist/LeetCode-0.0.1-<系统>-<架构>.zip` 及 SHA-256 文件。Intel 架构文件名使用 `x64`；可通过 `GOOS=darwin GOARCH=amd64 python3 scripts/build/package.py` 交叉构建。在 Lithe 中从磁盘安装整个 zip；升级时需要完整更新后端和页面，重新启用并重开面板。出现版本不一致提示时重启 Lithe。
+打包脚本生成词条、核对固定图标哈希并编译后端。发布执行 `python3 scripts/build/package.py --all`，一次构建 macOS、Windows、Linux 的 arm64/x64 六个包；不带参数时只构建当前 `GOOS`/`GOARCH`。产物为 `dist/LeetCode-0.0.1-<系统>-<架构>.zip` 及 SHA-256 文件。x64 对应 Go 的 `amd64`；可通过 `GOOS=windows GOARCH=amd64 python3 scripts/build/package.py` 单独交叉构建。在 Lithe 中从磁盘安装整个 zip；升级时需要完整更新后端和页面，重新启用并重开面板。出现版本不一致提示时重启 Lithe。
 
-本次按用户要求发布 `0.0.1`，从最终源码构建 macOS arm64/x64 包；不复用此前本地开发安装包。所需宿主修复见下方“宿主依赖”，使用旧宿主无法获得窗口图标、错误分类和浮层修复。
+本次按用户要求发布 `0.0.1`，提供 macOS、Windows、Linux 的 arm64/x64 包；补充的 Windows/Linux 包从 `v0.0.1` 原始提交构建，保留已发布的 Mac 资产。所需宿主修复见下方“宿主依赖”，使用旧宿主无法获得窗口图标、错误分类和浮层修复。构建包不等于目标平台验收；Windows 与 Linux 保持 pending。
 
 ## 日常维护
 
@@ -36,7 +36,7 @@ python3 scripts/build/package.py
 
 修改文案后执行 `go run ./scripts/build/translations.go`。需要自行验证时，使用 README 和 `docs/verification.md` 的入口，只运行受影响范围。GitHub 默认提供 Linux 检查，不启动 macOS/Windows runner；检查工作流不代替桌面和真实账号验收。
 
-功能增加升次版本号，修复升修订号；依赖未发布宿主能力时仅提供开发安装或预发布，不直接进入市场。首次公开版本按用户指定为 `0.0.1`，作为 GitHub 预发布提供，不进入插件市场。源代码尚未添加授权许可证，公开仓库不代表已选择开源许可；第三方许可见 `THIRD_PARTY_NOTICES.md`。
+功能增加升次版本号，修复升修订号；依赖未发布宿主能力时提供开发安装或预发布。首次公开版本按用户指定为 `0.0.1`，Store 按最新要求准备手工收录；索引审查不代表安全审计或运行验收。源代码尚未添加授权许可证，Store Draft PR 必须明确这一待办，补齐许可证后才能合入；第三方许可见 `THIRD_PARTY_NOTICES.md`。
 
 ## 本次已接线和剩余缺口
 

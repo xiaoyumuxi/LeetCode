@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""构建本机插件包；运行时不需要 Go、Python 或联网下载依赖。"""
+"""构建本机或全部平台插件包；运行时不需要 Go、Python 或联网下载依赖。"""
+import argparse
 import hashlib
 import json
 import os
@@ -9,25 +10,17 @@ import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
+TARGETS = tuple((goos, arch) for goos in ("darwin", "windows", "linux") for arch in ("arm64", "amd64"))
 
-def main():
-    os.chdir(ROOT)
-    generator_env = dict(os.environ)
-    generator_env.pop("GOOS", None)
-    generator_env.pop("GOARCH", None)
-    subprocess.run(["go", "run", "./scripts/build/translations.go"], env=generator_env, check=True, timeout=60)
-    for resource in json.loads((ROOT / "resources.lock.json").read_text())["simpleIcons"]["files"]:
-        if hashlib.sha256((ROOT / resource["path"]).read_bytes()).hexdigest() != resource["sha256"]:
-            raise ValueError("Locked icon resource was modified: " + resource["path"])
+
+def build_package(goos, arch):
     manifest = json.loads((ROOT / "plugin.json").read_text())
-    goos = subprocess.check_output(["go", "env", "GOOS"], text=True).strip()
-    arch = subprocess.check_output(["go", "env", "GOARCH"], text=True).strip()
     package = ROOT / ".artifacts" / "package" / f"{goos}-{arch}"
     if package.exists():
         shutil.rmtree(package)
     (package / "bin").mkdir(parents=True)
     backend = "backend.exe" if goos == "windows" else "backend"
-    env = dict(os.environ, CGO_ENABLED="0")
+    env = dict(os.environ, CGO_ENABLED="0", GOOS=goos, GOARCH=arch)
     subprocess.run(["go", "build", "-trimpath", "-buildvcs=false", "-ldflags=-s -w -buildid=", "-o", str(package / "bin" / backend), "./cmd/backend"], env=env, check=True, timeout=120)
     manifest["backend"]["launch"]["path"] = "bin/" + backend
     (package / "plugin.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
@@ -50,6 +43,30 @@ def main():
     archive.with_suffix(".zip.sha256").write_text(f"{digest}  {archive.name}\n")
     print(archive)
     print("SHA-256", digest)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--all", action="store_true", help="构建 macOS、Windows、Linux 的 arm64/x64 全部六个安装包")
+    args = parser.parse_args()
+    os.chdir(ROOT)
+    if args.all:
+        targets = TARGETS
+    else:
+        target = json.loads(subprocess.check_output(["go", "env", "-json", "GOOS", "GOARCH"], text=True, timeout=15))
+        targets = ((target["GOOS"], target["GOARCH"]),)
+        if targets[0] not in TARGETS:
+            parser.error("仅支持 macOS、Windows、Linux 的 arm64/x64 目标")
+    generator_env = dict(os.environ)
+    generator_env.pop("GOOS", None)
+    generator_env.pop("GOARCH", None)
+    subprocess.run(["go", "run", "./scripts/build/translations.go"], env=generator_env, check=True, timeout=60)
+    for resource in json.loads((ROOT / "resources.lock.json").read_text())["simpleIcons"]["files"]:
+        if hashlib.sha256((ROOT / resource["path"]).read_bytes()).hexdigest() != resource["sha256"]:
+            raise ValueError("Locked icon resource was modified: " + resource["path"])
+    for goos, arch in targets:
+        build_package(goos, arch)
+
 
 if __name__ == "__main__":
     main()

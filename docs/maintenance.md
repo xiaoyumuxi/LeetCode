@@ -49,4 +49,4 @@ python3 scripts/build/package.py
 
 ## 宿主依赖
 
-公共 API 来自宿主 [#2372](https://github.com/1lck/Lithe-IDEA/pull/2372) 和 Core [#194](https://github.com/Lithe-IDEA/Lithe-core-rust/pull/194)。本轮通用修复见宿主 [#2383](https://github.com/1lck/Lithe-IDEA/pull/2383)（Draft）；`sdk.lock.json` 已固定包含最后图标接线的宿主提交。宿主 PR 只包含通用修复，插件无需修改 Core 协议。
+公共 API 来自宿主 [#2372](https://github.com/1lck/Lithe-IDEA/pull/2372) 和 Core [#194](https://github.com/Lithe-IDEA/Lithe-core-rust/pull/194)。本轮通用修复见宿主 [#2383](https://github.com/1lck/Lithe-IDEA/pull/2383)（已合入）；`sdk.lock.json` 已固定包含最后图标接线的宿主提交。宿主 PR 只包含通用修复，插件无需修改 Core 协议。
